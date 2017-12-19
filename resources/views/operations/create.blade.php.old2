@@ -1,0 +1,92 @@
+@extends('layouts.app')
+
+@section('content')
+    <section class="content-header">
+        <h1>
+            Operation
+        </h1>
+    </section>
+    <div class="content">
+        <div id="operation" v-cloak>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="row">
+                    {!! Form::open(['route' => 'operations.store']) !!}
+                        <!-- Operation Field -->
+                        <div class="form-group col-sm-6">
+                            {!! Form::label('operation', 'Operation:') !!}
+                            {!! Form::text('operation', null, ['class' => 'form-control', 'placeholder'=>'Indique la operación...']) !!}
+                            {!! $errors->first('operation', '<div class="text-danger">:message</div>') !!}
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="form-group col-sm-6">
+                            {!! Form::label('description', 'Description:') !!}
+                            {!! Form::text('description', null, ['class' => 'form-control', 'placeholder'=>'Indique la descripción...']) !!}
+                            {!! $errors->first('description', '<div class="text-danger">:message</div>') !!}
+                        </div>
+                        <hr>
+                        <div v-if="errors.risks_empty">
+                            <p class="alert alert-danger">@{{errors.risks_empty[0]}}</p>
+                            <hr>
+                        </div>
+                        <table class="table table-bordered table-form">
+                            <thead>
+                                <tr>
+                                    <th>Risks</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(risk,index) in form.risks">
+                                    <td class="table-risk" :class="{'table-error': errors['risks.' + index + '.risk']}">
+
+									    <select2 :options="options" v-model="selected" :url="">
+									      <option disabled value="0">Select one</option>
+									    </select2>
+                                    </td>
+                                    <td class="table-detail" :class="{'table-error': errors['risks.' + index + '.detail']}">
+                                        <input type="text" class="table-control"  v-model="risk.detail">
+                                    </td>
+                                    <td class="table-remove">
+                                        <span @click="remove(index)" class="table-remove-btn">Borrar</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="table-empty" colspan="2">
+                                        <span @click="addLine" class="btn btn-primary">Add Line</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <!-- Submit Field -->
+                        <div class="form-group col-sm-12">
+                            {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                            <a href="{!! route('operations.index') !!}" class="btn btn-default">Cancel</a>
+                        </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+@endsection
+@section('scripts')
+<!--    clude('operations.scripts')
+
+ using string template here to work around HTML <option> placement restriction 
+<script type="text/x-template" id="demo-template">
+
+</script>
+
+<script type="text/x-template" id="select2-template">
+  <select>
+    <slot></slot>
+  </select>
+</script>-->
+
+
+    <script src="{{asset('/public/js/app.js')}}"></script> <!---->
+@endsection
