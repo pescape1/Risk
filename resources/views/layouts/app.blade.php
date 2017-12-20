@@ -141,7 +141,7 @@
     @endif
 
     <!-- jQuery 3.1.1 -->
-    <script src="{{asset('/public/js/jquery.min.js')}}"></script>
+    <script src="{{asset('/js/jquery.min.js')}}"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
